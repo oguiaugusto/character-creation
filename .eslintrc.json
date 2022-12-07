@@ -8,6 +8,8 @@
 	},
 	"rules": {
 		"react/function-component-definition": "off",
+		"react/jsx-curly-spacing": [2, {"when": "always", "children": true}],
+		"import/prefer-default-export": "off",
 		"arrow-body-style": "off"
 	}
 }
