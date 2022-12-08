@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { IUserRegister } from '../interfaces/IUser';
 import { ChangeHandler } from '../interfaces/types';
 import { isRegisterFieldsValid } from '../utils/userValidations';
+import { RegisterForm } from '../components';
 import createNewUser from '../utils/register';
 
 const Register: React.FC = () => {
@@ -10,7 +11,10 @@ const Register: React.FC = () => {
     password: '',
     passwordConfirm: '',
   });
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleChange: ChangeHandler = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -33,32 +37,15 @@ const Register: React.FC = () => {
     <div>
       <h1>Character Creation</h1>
       <h2>Register</h2>
-      <form onSubmit={ handleSubmit }>
-        <input
-          type="text"
-          name="username"
-          onChange={ handleChange }
-          placeholder="e.g. johnsmith"
-        />
-        <input
-          type="password"
-          name="password"
-          onChange={ handleChange }
-          placeholder="*******"
-        />
-        <input
-          type="password"
-          name="passwordConfirm"
-          onChange={ handleChange }
-          placeholder="*******"
-        />
-        <button
-          type="submit"
-          disabled={ isButtonDisabled }
-        >
-          Register
-        </button>
-      </form>
+      <RegisterForm
+        handleSubmit={ handleSubmit }
+        handleShowPassword={ () => setShowPassword(!showPassword) }
+        handleShowPasswordConfirm={ () => setShowPasswordConfirm(!showPasswordConfirm) }
+        handleChange={ handleChange }
+        showPassword={ showPassword }
+        showPasswordConfirm={ showPasswordConfirm }
+        isButtonDisabled={ isButtonDisabled }
+      />
     </div>
   );
 };
