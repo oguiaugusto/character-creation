@@ -31,6 +31,13 @@ const RegisterForm: React.FC<Props> = (props) => {
     <Box
       component="form"
       onSubmit={ handleSubmit }
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        px: 2,
+        gap: 2,
+      }}
     >
       <InputRightIcon
         handleChange={ handleChange }
@@ -62,10 +69,23 @@ const RegisterForm: React.FC<Props> = (props) => {
         variant="contained"
         type="submit"
         disabled={ isButtonDisabled }
+        sx={{ marginTop: 1, py: 1 }}
       >
         Register
       </Button>
-      <Typography variant="body2">
+      <Typography
+        variant="body2"
+        sx={{
+          alignSelf: 'center',
+          '& a': {
+            color: 'primary.main',
+            textDecoration: 'none',
+            fontWeight: 600,
+            '&:hover': { filter: 'brightness(0.8)' },
+            '&:active': { filter: 'brightness(0.6)' },
+          },
+        }}
+      >
         { 'Already have an account? ' }
         <Link to="/login">Login</Link>
       </Typography>
