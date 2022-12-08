@@ -42,7 +42,7 @@ const InputPassword: React.FC<Props> = (props) => {
         type={ showPassword ? 'text' : 'password' }
         onChange={ handleChange }
         endAdornment={ (
-          <InputAdornment position="start">
+          <InputAdornment position="end">
             <IconButton onClick={ handleShow }>
               {
                 showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />
