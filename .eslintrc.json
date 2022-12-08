@@ -14,7 +14,7 @@
 				"when": "always",
 				"children": true,
 				"allowMultiline": true,
-				"objectLiterals": "never"
+				"spacing": { "objectLiterals": "never" }
 			}
 		],
 		"import/prefer-default-export": "off",
