@@ -1,9 +1,30 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import { Box, createTheme, ThemeProvider, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { IUserRegister } from '../interfaces/IUser';
 import { ChangeHandler } from '../interfaces/types';
 import { isRegisterFieldsValid } from '../utils/userValidations';
 import { RegisterForm } from '../components';
 import createNewUser from '../utils/register';
+import '@fontsource/rubik';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#00a152',
+    },
+    secondary: {
+      main: '#2c387e',
+    },
+  },
+  typography: {
+    fontFamily: [
+      'Rubik',
+      'Roboto',
+      'sans-serif',
+    ].join(','),
+  },
+});
 
 const Register: React.FC = () => {
   const [user, setUser] = useState<IUserRegister>({
@@ -34,19 +55,44 @@ const Register: React.FC = () => {
   }, [user]);
 
   return (
-    <div>
-      <h1>Character Creation</h1>
-      <h2>Register</h2>
-      <RegisterForm
-        handleSubmit={ handleSubmit }
-        handleShowPassword={ () => setShowPassword(!showPassword) }
-        handleShowPasswordConfirm={ () => setShowPasswordConfirm(!showPasswordConfirm) }
-        handleChange={ handleChange }
-        showPassword={ showPassword }
-        showPasswordConfirm={ showPasswordConfirm }
-        isButtonDisabled={ isButtonDisabled }
-      />
-    </div>
+    <ThemeProvider theme={ theme }>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          bgcolor: grey[50],
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+            width: 500,
+            gap: 2.5,
+            mb: 8,
+          }}
+        >
+          <Typography
+            variant="h2"
+            sx={{ alignSelf: 'flex-start', fontSize: 30, marginLeft: 2 }}
+          >
+            Create a new account
+          </Typography>
+          <RegisterForm
+            handleSubmit={ handleSubmit }
+            handleShowPassword={ () => setShowPassword(!showPassword) }
+            handleShowPasswordConfirm={ () => setShowPasswordConfirm(!showPasswordConfirm) }
+            handleChange={ handleChange }
+            showPassword={ showPassword }
+            showPasswordConfirm={ showPasswordConfirm }
+            isButtonDisabled={ isButtonDisabled }
+          />
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 };
 
