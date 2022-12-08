@@ -1,6 +1,7 @@
 import React from 'react';
 import PersonIcon from '@mui/icons-material/Person';
-import { Box, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
 import { ChangeHandler } from '../interfaces/types';
 import InputRightIcon from './InputRightIcon';
 import InputPassword from './InputPassword';
@@ -64,6 +65,10 @@ const RegisterForm: React.FC<Props> = (props) => {
       >
         Register
       </Button>
+      <Typography variant="body2">
+        { 'Already have an account? ' }
+        <Link to="/login">Login</Link>
+      </Typography>
     </Box>
   );
 };
