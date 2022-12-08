@@ -12,7 +12,7 @@ const createNewUser = async (user: IUserDTO) => {
   } catch (error) {
     const err = error as AxiosError;
     const errorData = {
-      status: err.response?.status,
+      status: 500,
       message: err.message,
     };
 
@@ -20,6 +20,7 @@ const createNewUser = async (user: IUserDTO) => {
       const { message } = err.response.data as { message: string | undefined };
 
       if (message) {
+        errorData.status = err.response.status;
         errorData.message = message;
       }
     }
