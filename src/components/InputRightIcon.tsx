@@ -5,10 +5,14 @@ import {
   InputAdornment,
   InputLabel,
 } from '@mui/material';
-import { ChangeHandler } from '../interfaces/types';
+import { BlurHandler, ChangeHandler } from '../interfaces/types';
+import FormErrorHelperText from './FormErrorHelperText';
 
 type Props = {
   handleChange: ChangeHandler;
+  handleBlur: BlurHandler;
+  isValid: boolean;
+  helperText: string;
   id: string;
   name: string;
   placeholder: string;
@@ -17,7 +21,17 @@ type Props = {
 };
 
 const InputRightIcon: React.FC<Props> = (props) => {
-  const { handleChange, id, name, placeholder, label, icon } = props;
+  const {
+    handleChange,
+    handleBlur,
+    id,
+    name,
+    placeholder,
+    label,
+    icon,
+    isValid,
+    helperText,
+  } = props;
 
   return (
     <FormControl variant="outlined" size="small">
@@ -27,13 +41,18 @@ const InputRightIcon: React.FC<Props> = (props) => {
         name={ name }
         placeholder={ placeholder }
         onChange={ handleChange }
+        onBlur={ handleBlur }
         label={ label }
+        error={ !isValid }
         endAdornment={ (
           <InputAdornment position="start">
             { icon }
           </InputAdornment>
         ) }
       />
+      {
+        !isValid && <FormErrorHelperText helperText={ helperText } />
+      }
     </FormControl>
   );
 };
