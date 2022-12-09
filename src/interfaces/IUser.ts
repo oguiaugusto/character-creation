@@ -17,8 +17,11 @@ export interface IUserLogged {
   token: string;
 }
 
-export interface IUserRegisterValidation {
+export interface IUserLoginValidation {
   username: boolean;
   password: boolean;
+}
+
+export interface IUserRegisterValidation extends IUserLoginValidation {
   passwordConfirm: boolean;
 }
