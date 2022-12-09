@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, createTheme, ThemeProvider, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { IUserRegister } from '../interfaces/IUser';
@@ -27,6 +28,8 @@ const theme = createTheme({
 });
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState<IUserRegister>({
     username: '',
     password: '',
@@ -47,7 +50,12 @@ const Register: React.FC = () => {
     const { username, password } = user;
     const data = await createNewUser({ username, password });
 
-    console.log(data); // eslint-disable-line
+    if (Object.hasOwn(data, 'user') && Object.hasOwn(data, 'token')) {
+      localStorage.setItem('user', JSON.stringify(data));
+      navigate('/');
+    } else {
+      console.log('aí a gente vê oq faz...'); // eslint-disable-line
+    }
   };
 
   useEffect(() => {
