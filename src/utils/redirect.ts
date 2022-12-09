@@ -8,4 +8,12 @@ const redirectIfLoggedIn = (navigate: NavigateFunction) => {
   }
 };
 
-export { redirectIfLoggedIn };
+const redirectIfNotLoggedIn = (navigate: NavigateFunction) => {
+  const user = localStorage.getItem('user');
+
+  if (!user) {
+    navigate('/login', { replace: true });
+  }
+};
+
+export { redirectIfLoggedIn, redirectIfNotLoggedIn };
