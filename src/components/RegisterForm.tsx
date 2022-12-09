@@ -2,7 +2,8 @@ import React from 'react';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
-import { ChangeHandler } from '../interfaces/types';
+import { BlurHandler, ChangeHandler } from '../interfaces/types';
+import { IUserRegisterValidation } from '../interfaces/IUser';
 import InputRightIcon from './InputRightIcon';
 import InputPassword from './InputPassword';
 
@@ -11,8 +12,10 @@ type Props = {
   handleShowPassword: () => void;
   handleShowPasswordConfirm: () => void;
   handleChange: ChangeHandler;
+  handleBlur: BlurHandler;
   showPassword: boolean;
   showPasswordConfirm: boolean;
+  userValidations: IUserRegisterValidation;
   isButtonDisabled: boolean;
 };
 
@@ -22,8 +25,10 @@ const RegisterForm: React.FC<Props> = (props) => {
     handleShowPassword,
     handleShowPasswordConfirm,
     handleChange,
+    handleBlur,
     showPassword,
     showPasswordConfirm,
+    userValidations,
     isButtonDisabled,
   } = props;
 
@@ -41,6 +46,9 @@ const RegisterForm: React.FC<Props> = (props) => {
     >
       <InputRightIcon
         handleChange={ handleChange }
+        handleBlur={ handleBlur }
+        isValid={ userValidations.username }
+        helperText="Username must be between 3 and 20 characters long"
         id="username"
         name="username"
         placeholder="johnsmith"
@@ -50,7 +58,10 @@ const RegisterForm: React.FC<Props> = (props) => {
       <InputPassword
         handleChange={ handleChange }
         handleShow={ handleShowPassword }
+        handleBlur={ handleBlur }
         showPassword={ showPassword }
+        isValid={ userValidations.password }
+        helperText="Password must be at least 6 characters long"
         id="password"
         name="password"
         placeholder="*******"
@@ -59,7 +70,10 @@ const RegisterForm: React.FC<Props> = (props) => {
       <InputPassword
         handleChange={ handleChange }
         handleShow={ handleShowPasswordConfirm }
+        handleBlur={ handleBlur }
         showPassword={ showPasswordConfirm }
+        isValid={ userValidations.passwordConfirm }
+        helperText="Passwords must match"
         id="password-confirm"
         name="passwordConfirm"
         placeholder="*******"

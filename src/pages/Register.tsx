@@ -2,8 +2,8 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { IUserRegister } from '../interfaces/IUser';
-import { ChangeHandler } from '../interfaces/types';
+import { IUserRegister, IUserRegisterValidation } from '../interfaces/IUser';
+import { BlurHandler, ChangeHandler } from '../interfaces/types';
 import { isRegisterFieldsValid } from '../utils/userValidations';
 import { RegisterForm } from '../components';
 import { redirectIfLoggedIn } from '../utils/redirect';
@@ -17,6 +17,11 @@ const Register: React.FC = () => {
     password: '',
     passwordConfirm: '',
   });
+  const [userValidations, setUserValidations] = useState<IUserRegisterValidation>({
+    username: true,
+    password: true,
+    passwordConfirm: true,
+  });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
@@ -24,6 +29,13 @@ const Register: React.FC = () => {
 
   const handleChange: ChangeHandler = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
+  };
+
+  const handleBlur: BlurHandler = ({ target: { name } }) => {
+    const validations = isRegisterFieldsValid(user)[1];
+    const isValid = validations[name as keyof IUserRegisterValidation];
+
+    setUserValidations({ ...userValidations, [name]: isValid });
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -45,7 +57,9 @@ const Register: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setIsButtonDisabled(!isRegisterFieldsValid(user));
+    const [areFieldsValid] = isRegisterFieldsValid(user);
+
+    setIsButtonDisabled(!areFieldsValid);
   }, [user]);
 
   return (
@@ -76,11 +90,13 @@ const Register: React.FC = () => {
         </Typography>
         <RegisterForm
           handleSubmit={ handleSubmit }
+          handleBlur={ handleBlur }
           handleShowPassword={ () => setShowPassword(!showPassword) }
           handleShowPasswordConfirm={ () => setShowPasswordConfirm(!showPasswordConfirm) }
           handleChange={ handleChange }
           showPassword={ showPassword }
           showPasswordConfirm={ showPasswordConfirm }
+          userValidations={ userValidations }
           isButtonDisabled={ isButtonDisabled }
         />
       </Box>
