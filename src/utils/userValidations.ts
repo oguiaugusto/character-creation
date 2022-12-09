@@ -1,4 +1,9 @@
-import { IUserDTO, IUserRegister, IUserRegisterValidation } from '../interfaces/IUser';
+import {
+  IUserDTO,
+  IUserLoginValidation,
+  IUserRegister,
+  IUserRegisterValidation,
+} from '../interfaces/IUser';
 
 const isRegisterFieldsValid = (user: IUserRegister): [boolean, IUserRegisterValidation] => {
   const { username, password, passwordConfirm } = user;
@@ -20,7 +25,7 @@ const isRegisterFieldsValid = (user: IUserRegister): [boolean, IUserRegisterVali
   return [Object.values(validations).every(Boolean), validations];
 };
 
-const isLoginFieldsValid = (user: IUserDTO) => {
+const isLoginFieldsValid = (user: IUserDTO): [boolean, IUserLoginValidation] => {
   const { username, password } = user;
   const isPasswordValid = password.length >= 6;
 
@@ -30,7 +35,12 @@ const isLoginFieldsValid = (user: IUserDTO) => {
     && username === username.toLowerCase()
   );
 
-  return isPasswordValid && isUsernameValid;
+  const validations = {
+    username: isUsernameValid,
+    password: isPasswordValid,
+  };
+
+  return [Object.values(validations).every(Boolean), validations];
 };
 
 export { isRegisterFieldsValid, isLoginFieldsValid };
