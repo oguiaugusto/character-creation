@@ -86,7 +86,7 @@ const RegisterForm: React.FC<Props> = (props) => {
           },
         }}
       >
-        { 'Already have an account? ' }
+        { 'Already registered? ' }
         <Link to="/login">Login</Link>
       </Typography>
     </Box>

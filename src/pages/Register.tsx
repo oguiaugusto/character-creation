@@ -71,12 +71,12 @@ const Register: React.FC = () => {
             alignItems: 'center',
             flexDirection: 'column',
             width: 500,
-            gap: 2.5,
+            gap: 4,
             mb: 8,
           }}
         >
           <Typography
-            variant="h2"
+            variant="h1"
             sx={{ alignSelf: 'flex-start', fontSize: 30, marginLeft: 2 }}
           >
             Create a new account
