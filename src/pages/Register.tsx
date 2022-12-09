@@ -6,6 +6,7 @@ import { IUserRegister } from '../interfaces/IUser';
 import { ChangeHandler } from '../interfaces/types';
 import { isRegisterFieldsValid } from '../utils/userValidations';
 import { RegisterForm } from '../components';
+import { redirectIfLoggedIn } from '../utils/redirect';
 import postUser from '../utils/postUser';
 
 const Register: React.FC = () => {
@@ -38,6 +39,10 @@ const Register: React.FC = () => {
       console.log('aí a gente vê oq faz...'); // eslint-disable-line
     }
   };
+
+  useEffect(() => {
+    redirectIfLoggedIn(navigate);
+  }, []);
 
   useEffect(() => {
     setIsButtonDisabled(!isRegisterFieldsValid(user));

@@ -6,6 +6,7 @@ import { LoginForm } from '../components';
 import { IUserDTO } from '../interfaces/IUser';
 import { ChangeHandler } from '../interfaces/types';
 import { isLoginFieldsValid } from '../utils/userValidations';
+import { redirectIfLoggedIn } from '../utils/redirect';
 import postUser from '../utils/postUser';
 
 const Login: React.FC = () => {
@@ -36,6 +37,10 @@ const Login: React.FC = () => {
       console.log('aí a gente vê oq faz...'); // eslint-disable-line
     }
   };
+
+  useEffect(() => {
+    redirectIfLoggedIn(navigate);
+  }, []);
 
   useEffect(() => {
     setIsButtonDisabled(!isLoginFieldsValid(user));
