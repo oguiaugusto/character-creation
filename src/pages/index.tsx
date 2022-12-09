@@ -1,3 +1,4 @@
 import Register from './Register';
+import Home from './Home';
 
-export { Register };
+export { Register, Home };
