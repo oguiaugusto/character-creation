@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { LoginForm } from '../components';
-import { IUserDTO } from '../interfaces/IUser';
-import { ChangeHandler } from '../interfaces/types';
+import { IUserDTO, IUserLoginValidation } from '../interfaces/IUser';
+import { BlurHandler, ChangeHandler } from '../interfaces/types';
 import { isLoginFieldsValid } from '../utils/userValidations';
 import { redirectIfLoggedIn } from '../utils/redirect';
 import postUser from '../utils/postUser';
@@ -17,11 +17,23 @@ const Login: React.FC = () => {
     password: '',
   });
 
+  const [userValidations, setUserValidations] = useState<IUserLoginValidation>({
+    username: true,
+    password: true,
+  });
+
   const [showPassword, setShowPassword] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleChange: ChangeHandler = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
+  };
+
+  const handleBlur: BlurHandler = ({ target: { name } }) => {
+    const validations = isLoginFieldsValid(user)[1];
+    const isValid = validations[name as keyof IUserLoginValidation];
+
+    setUserValidations({ ...userValidations, [name]: isValid });
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -43,7 +55,9 @@ const Login: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setIsButtonDisabled(!isLoginFieldsValid(user));
+    const [areFieldsValid] = isLoginFieldsValid(user);
+
+    setIsButtonDisabled(!areFieldsValid);
   }, [user]);
 
   return (
@@ -75,6 +89,8 @@ const Login: React.FC = () => {
         <LoginForm
           handleSubmit={ handleSubmit }
           handleChange={ handleChange }
+          handleBlur={ handleBlur }
+          userValidations={ userValidations }
           handleShowPassword={ () => setShowPassword(!showPassword) }
           showPassword={ showPassword }
           isButtonDisabled={ isButtonDisabled }

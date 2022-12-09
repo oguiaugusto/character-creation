@@ -2,7 +2,8 @@ import React from 'react';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
-import { ChangeHandler } from '../interfaces/types';
+import { BlurHandler, ChangeHandler } from '../interfaces/types';
+import { IUserLoginValidation } from '../interfaces/IUser';
 import InputRightIcon from './InputRightIcon';
 import InputPassword from './InputPassword';
 
@@ -10,7 +11,9 @@ type Props = {
   handleSubmit: (e: React.FormEvent) => void;
   handleShowPassword: () => void;
   handleChange: ChangeHandler;
+  handleBlur: BlurHandler;
   showPassword: boolean;
+  userValidations: IUserLoginValidation;
   isButtonDisabled: boolean;
 };
 
@@ -19,7 +22,9 @@ const LoginForm: React.FC<Props> = (props) => {
     handleSubmit,
     handleShowPassword,
     handleChange,
+    handleBlur,
     showPassword,
+    userValidations,
     isButtonDisabled,
   } = props;
 
@@ -37,6 +42,9 @@ const LoginForm: React.FC<Props> = (props) => {
     >
       <InputRightIcon
         handleChange={ handleChange }
+        handleBlur={ handleBlur }
+        isValid={ userValidations.username }
+        helperText="Username must be between 3 and 20 characters long"
         id="username"
         name="username"
         placeholder="johnsmith"
@@ -46,7 +54,10 @@ const LoginForm: React.FC<Props> = (props) => {
       <InputPassword
         handleChange={ handleChange }
         handleShow={ handleShowPassword }
+        handleBlur={ handleBlur }
         showPassword={ showPassword }
+        isValid={ userValidations.password }
+        helperText="Password must be at least 6 characters long"
         id="password"
         name="password"
         placeholder="*******"
