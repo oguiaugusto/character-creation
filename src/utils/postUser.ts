@@ -3,9 +3,9 @@ import { IUserDTO, IUserLogged } from '../interfaces/IUser';
 
 const { REACT_APP_API_URL = 'http://localhost:3001' } = process.env;
 
-const createNewUser = async (user: IUserDTO) => {
+const postUser = async (user: IUserDTO, endpoint: string) => {
   try {
-    const response = await axios.post(`${REACT_APP_API_URL}/users`, user);
+    const response = await axios.post(`${REACT_APP_API_URL}${endpoint}`, user);
     const data = response.data as IUserLogged;
 
     return data;
@@ -29,4 +29,4 @@ const createNewUser = async (user: IUserDTO) => {
   }
 };
 
-export default createNewUser;
+export default postUser;

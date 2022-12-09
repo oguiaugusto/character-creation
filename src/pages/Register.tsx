@@ -6,7 +6,7 @@ import { IUserRegister } from '../interfaces/IUser';
 import { ChangeHandler } from '../interfaces/types';
 import { isRegisterFieldsValid } from '../utils/userValidations';
 import { RegisterForm } from '../components';
-import createNewUser from '../utils/register';
+import postUser from '../utils/postUser';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const Register: React.FC = () => {
     e.preventDefault();
 
     const { username, password } = user;
-    const data = await createNewUser({ username, password });
+    const data = await postUser({ username, password }, '/users');
 
     if (Object.hasOwn(data, 'user') && Object.hasOwn(data, 'token')) {
       localStorage.setItem('user', JSON.stringify(data));
