@@ -8,11 +8,15 @@ import {
   IconButton,
   InputLabel,
 } from '@mui/material';
-import { ChangeHandler } from '../interfaces/types';
+import { BlurHandler, ChangeHandler } from '../interfaces/types';
+import FormErrorHelperText from './FormErrorHelperText';
 
 type Props = {
   handleChange: ChangeHandler;
   handleShow: () => void;
+  handleBlur: BlurHandler;
+  isValid: boolean;
+  helperText: string;
   showPassword: boolean;
   id: string;
   name: string;
@@ -24,11 +28,14 @@ const InputPassword: React.FC<Props> = (props) => {
   const {
     handleChange,
     handleShow,
+    handleBlur,
     showPassword,
     id,
     name,
     placeholder,
     label,
+    isValid,
+    helperText,
   } = props;
 
   return (
@@ -41,6 +48,8 @@ const InputPassword: React.FC<Props> = (props) => {
         label={ label }
         type={ showPassword ? 'text' : 'password' }
         onChange={ handleChange }
+        onBlur={ handleBlur }
+        error={ !isValid }
         endAdornment={ (
           <InputAdornment position="end">
             <IconButton onClick={ handleShow }>
@@ -51,6 +60,9 @@ const InputPassword: React.FC<Props> = (props) => {
           </InputAdornment>
         ) }
       />
+      {
+        !isValid && <FormErrorHelperText helperText={ helperText } />
+      }
     </FormControl>
   );
 };
