@@ -16,3 +16,9 @@ export interface IUserLogged {
   user: IUserPublic;
   token: string;
 }
+
+export interface IUserRegisterValidation {
+  username: boolean;
+  password: boolean;
+  passwordConfirm: boolean;
+}
