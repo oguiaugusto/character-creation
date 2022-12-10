@@ -4,9 +4,10 @@ import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { LoginForm } from '../components';
 import { IUserDTO, IUserLoginValidation } from '../interfaces/IUser';
-import { BlurHandler, ChangeHandler } from '../interfaces/types';
+import { BlurHandler } from '../interfaces/types';
 import { isLoginFieldsValid } from '../utils/userValidations';
 import { redirectIfLoggedIn } from '../utils/redirect';
+import { createHandleChange } from '../utils/actionHandlers';
 import postUser from '../utils/postUser';
 
 const Login: React.FC = () => {
@@ -25,9 +26,7 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const handleChange: ChangeHandler = ({ target: { name, value } }) => {
-    setUser({ ...user, [name]: value });
-  };
+  const handleChange = createHandleChange(user, setUser);
 
   const handleBlur: BlurHandler = ({ target: { name } }) => {
     const validations = isLoginFieldsValid(user)[1];

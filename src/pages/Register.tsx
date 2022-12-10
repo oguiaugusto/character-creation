@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { IUserRegister, IUserRegisterValidation } from '../interfaces/IUser';
-import { BlurHandler, ChangeHandler } from '../interfaces/types';
+import { BlurHandler } from '../interfaces/types';
 import { isRegisterFieldsValid } from '../utils/userValidations';
 import { RegisterForm } from '../components';
 import { redirectIfLoggedIn } from '../utils/redirect';
+import { createHandleChange } from '../utils/actionHandlers';
 import postUser from '../utils/postUser';
 
 const Register: React.FC = () => {
@@ -27,9 +28,7 @@ const Register: React.FC = () => {
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const handleChange: ChangeHandler = ({ target: { name, value } }) => {
-    setUser({ ...user, [name]: value });
-  };
+  const handleChange = createHandleChange(user, setUser);
 
   const handleBlur: BlurHandler = ({ target: { name } }) => {
     const validations = isRegisterFieldsValid(user)[1];
