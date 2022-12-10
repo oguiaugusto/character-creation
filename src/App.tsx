@@ -1,6 +1,7 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
 import Routes from './routes';
+import 'react-toastify/dist/ReactToastify.css';
 import '@fontsource/rubik';
 
 const theme = createTheme({

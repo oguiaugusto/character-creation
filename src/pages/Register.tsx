@@ -1,5 +1,6 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { IUserRegister, IUserRegisterValidation } from '../interfaces/IUser';
@@ -41,11 +42,11 @@ const Register: React.FC = () => {
     const { username, password } = user;
     const data = await postUser({ username, password }, '/users');
 
-    if (Object.hasOwn(data, 'user') && Object.hasOwn(data, 'token')) {
+    if ('user' in data && 'token' in data) {
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/');
-    } else {
-      console.log('aí a gente vê oq faz...'); // eslint-disable-line
+    } else if ('message' in data) {
+      toast.error(data.message, { pauseOnHover: false });
     }
   };
 
@@ -97,6 +98,7 @@ const Register: React.FC = () => {
           isButtonDisabled={ isButtonDisabled }
         />
       </Box>
+      <ToastContainer />
     </Box>
   );
 };

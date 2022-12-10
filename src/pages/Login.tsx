@@ -1,10 +1,10 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
+import { toast, ToastContainer } from 'react-toastify';
 import { grey } from '@mui/material/colors';
 import { LoginForm } from '../components';
 import { IUserDTO, IUserLoginValidation } from '../interfaces/IUser';
-// import { BlurHandler } from '../interfaces/types';
 import { isLoginFieldsValid } from '../utils/userValidations';
 import { redirectIfLoggedIn } from '../utils/redirect';
 import { createHandleChange, createHandleErrorOnBlur } from '../utils/actionHandlers';
@@ -43,8 +43,8 @@ const Login: React.FC = () => {
     if (Object.hasOwn(data, 'user') && Object.hasOwn(data, 'token')) {
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/');
-    } else {
-      console.log('aí a gente vê oq faz...'); // eslint-disable-line
+    } else if ('message' in data) {
+      toast.error(data.message, { pauseOnHover: false });
     }
   };
 
@@ -94,6 +94,7 @@ const Login: React.FC = () => {
           isButtonDisabled={ isButtonDisabled }
         />
       </Box>
+      <ToastContainer />
     </Box>
   );
 };
