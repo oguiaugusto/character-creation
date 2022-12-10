@@ -13,7 +13,7 @@ const postUser = async (user: IUserDTO, endpoint: string) => {
     const err = error as AxiosError;
     const errorData = {
       status: 500,
-      message: err.message,
+      message: 'Something went wrong. Please try again later.',
     };
 
     if (err.response?.data) {
