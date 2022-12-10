@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { IUserRegister, IUserRegisterValidation } from '../interfaces/IUser';
-import { BlurHandler } from '../interfaces/types';
 import { isRegisterFieldsValid } from '../utils/userValidations';
 import { RegisterForm } from '../components';
 import { redirectIfLoggedIn } from '../utils/redirect';
-import { createHandleChange } from '../utils/actionHandlers';
+import { createHandleChange, createHandleErrorOnBlur } from '../utils/actionHandlers';
 import postUser from '../utils/postUser';
 
 const Register: React.FC = () => {
@@ -29,13 +28,12 @@ const Register: React.FC = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleChange = createHandleChange(user, setUser);
-
-  const handleBlur: BlurHandler = ({ target: { name } }) => {
-    const validations = isRegisterFieldsValid(user)[1];
-    const isValid = validations[name as keyof IUserRegisterValidation];
-
-    setUserValidations({ ...userValidations, [name]: isValid });
-  };
+  const handleBlur = createHandleErrorOnBlur<IUserRegister, IUserRegisterValidation>(
+    userValidations,
+    setUserValidations,
+    user,
+    isRegisterFieldsValid,
+  );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

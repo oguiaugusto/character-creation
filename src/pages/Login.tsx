@@ -4,10 +4,10 @@ import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { LoginForm } from '../components';
 import { IUserDTO, IUserLoginValidation } from '../interfaces/IUser';
-import { BlurHandler } from '../interfaces/types';
+// import { BlurHandler } from '../interfaces/types';
 import { isLoginFieldsValid } from '../utils/userValidations';
 import { redirectIfLoggedIn } from '../utils/redirect';
-import { createHandleChange } from '../utils/actionHandlers';
+import { createHandleChange, createHandleErrorOnBlur } from '../utils/actionHandlers';
 import postUser from '../utils/postUser';
 
 const Login: React.FC = () => {
@@ -27,13 +27,12 @@ const Login: React.FC = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleChange = createHandleChange(user, setUser);
-
-  const handleBlur: BlurHandler = ({ target: { name } }) => {
-    const validations = isLoginFieldsValid(user)[1];
-    const isValid = validations[name as keyof IUserLoginValidation];
-
-    setUserValidations({ ...userValidations, [name]: isValid });
-  };
+  const handleBlur = createHandleErrorOnBlur<IUserDTO, IUserLoginValidation>(
+    userValidations,
+    setUserValidations,
+    user,
+    isLoginFieldsValid,
+  );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

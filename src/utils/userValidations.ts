@@ -5,7 +5,11 @@ import {
   IUserRegisterValidation,
 } from '../interfaces/IUser';
 
-const isRegisterFieldsValid = (user: IUserRegister): [boolean, IUserRegisterValidation] => {
+export type FieldsValidation<F, V> = (fields: F) => [boolean, V];
+type RegisterFieldsValidation = FieldsValidation<IUserRegister, IUserRegisterValidation>;
+type LoginFieldsValidation = FieldsValidation<IUserDTO, IUserLoginValidation>;
+
+const isRegisterFieldsValid: RegisterFieldsValidation = (user) => {
   const { username, password, passwordConfirm } = user;
   const isPasswordValid = password.length >= 6;
   const isPasswordConfirmValid = password === passwordConfirm;
@@ -25,7 +29,7 @@ const isRegisterFieldsValid = (user: IUserRegister): [boolean, IUserRegisterVali
   return [Object.values(validations).every(Boolean), validations];
 };
 
-const isLoginFieldsValid = (user: IUserDTO): [boolean, IUserLoginValidation] => {
+const isLoginFieldsValid: LoginFieldsValidation = (user) => {
   const { username, password } = user;
   const isPasswordValid = password.length >= 6;
 
