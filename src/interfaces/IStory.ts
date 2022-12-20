@@ -4,6 +4,12 @@ export interface IStoryDTO {
   picture: string;
 }
 
+export interface IStoryPOST {
+  title: string;
+  description?: string;
+  picture?: string;
+}
+
 export interface IStory extends IStoryDTO {
   id: string;
   authorId: string;
