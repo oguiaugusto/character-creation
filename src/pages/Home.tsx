@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { Button } from '@mui/material';
 import { redirectIfNotLoggedIn } from '../utils/redirect';
 import CreateStoryModal from '../components/CreateStoryModal';
@@ -19,6 +20,7 @@ const Home: React.FC = () => {
         storyModalOpen={ storyModalOpen }
         setStoryModalOpen={ setStoryModalOpen }
       />
+      <ToastContainer />
     </div>
   );
 };

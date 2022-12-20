@@ -7,6 +7,7 @@ import { IStoryDTO, IStoryValidation } from '../../interfaces/IStory';
 type Props = {
   handleChange: ChangeHandler;
   handleBlur: BlurHandler;
+  handleSubmit: (e: React.FormEvent) => void;
   story: IStoryDTO;
   storyValidations: IStoryValidation;
   isButtonDisabled: boolean;
@@ -16,6 +17,7 @@ const CreateStoryForm: React.FC<Props> = (props) => {
   const {
     handleChange,
     handleBlur,
+    handleSubmit,
     story,
     storyValidations,
     isButtonDisabled,
@@ -24,8 +26,8 @@ const CreateStoryForm: React.FC<Props> = (props) => {
   return (
     <Box
       component="form"
-      onSubmit={ (e) => { e.preventDefault(); } }
       sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: storyValidations.picture ? 0.8 : 2.2 }}
+      onSubmit={ handleSubmit }
     >
       <PictureInput
         handleChange={ handleChange }

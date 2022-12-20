@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import { toast } from 'react-toastify';
 import { grey } from '@mui/material/colors';
 import { Box, Divider, IconButton, Modal, Typography } from '@mui/material';
 import { createHandleChange, createHandleErrorOnBlur } from '../utils/actionHandlers';
-import { IStoryDTO, IStoryValidation } from '../interfaces/IStory';
+import { IStoryDTO, IStoryPOST, IStoryValidation } from '../interfaces/IStory';
+import { IUserLogged } from '../interfaces/IUser';
 import { validateStoryFields } from '../utils/storyValidations';
 import { CreateStoryForm } from './forms';
+import postStory from '../utils/postStory';
 
 type Props = {
   storyModalOpen: boolean;
@@ -35,6 +38,28 @@ const CreateStoryModal: React.FC<Props> = (props) => {
     story,
     validateStoryFields,
   );
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const storyData: IStoryPOST = { title: story.title };
+    if (story.description !== '') storyData.description = story.description;
+    if (story.picture !== '') storyData.picture = story.picture;
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}') as IUserLogged;
+    const data = await postStory(storyData, user.token);
+
+    if ('title' in data) {
+      setIsButtonDisabled(true);
+      toast.success('Story created successfully!', { pauseOnHover: false });
+
+      setTimeout(() => {
+        setStoryModalOpen(false);
+      }, 1000);
+    } else if ('message' in data) {
+      toast.error(data.message, { pauseOnHover: false });
+    }
+  };
 
   useEffect(() => {
     const [areFieldsValid] = validateStoryFields(story);
@@ -81,6 +106,7 @@ const CreateStoryModal: React.FC<Props> = (props) => {
           story={ story }
           handleChange={ handleChange }
           handleBlur={ handleBlur }
+          handleSubmit={ handleSubmit }
           storyValidations={ storyValidations }
           isButtonDisabled={ isButtonDisabled }
         />
