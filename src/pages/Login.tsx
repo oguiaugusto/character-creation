@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import { grey } from '@mui/material/colors';
-import { LoginForm } from '../components';
+import { LoginForm } from '../components/forms';
 import { IUserDTO, IUserLoginValidation } from '../interfaces/IUser';
 import { isLoginFieldsValid } from '../utils/userValidations';
 import { redirectIfLoggedIn } from '../utils/redirect';

@@ -2,28 +2,32 @@ import React from 'react';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
-import { BlurHandler, ChangeHandler } from '../interfaces/types';
-import { IUserLoginValidation } from '../interfaces/IUser';
-import InputRightIcon from './inputs/InputRightIcon';
-import InputPassword from './inputs/InputPassword';
+import { BlurHandler, ChangeHandler } from '../../interfaces/types';
+import { IUserRegisterValidation } from '../../interfaces/IUser';
+import InputRightIcon from '../inputs/InputRightIcon';
+import InputPassword from '../inputs/InputPassword';
 
 type Props = {
   handleSubmit: (e: React.FormEvent) => void;
   handleShowPassword: () => void;
+  handleShowPasswordConfirm: () => void;
   handleChange: ChangeHandler;
   handleBlur: BlurHandler;
   showPassword: boolean;
-  userValidations: IUserLoginValidation;
+  showPasswordConfirm: boolean;
+  userValidations: IUserRegisterValidation;
   isButtonDisabled: boolean;
 };
 
-const LoginForm: React.FC<Props> = (props) => {
+const RegisterForm: React.FC<Props> = (props) => {
   const {
     handleSubmit,
     handleShowPassword,
+    handleShowPasswordConfirm,
     handleChange,
     handleBlur,
     showPassword,
+    showPasswordConfirm,
     userValidations,
     isButtonDisabled,
   } = props;
@@ -63,13 +67,25 @@ const LoginForm: React.FC<Props> = (props) => {
         placeholder="*******"
         label="Password"
       />
+      <InputPassword
+        handleChange={ handleChange }
+        handleShow={ handleShowPasswordConfirm }
+        handleBlur={ handleBlur }
+        showPassword={ showPasswordConfirm }
+        isValid={ userValidations.passwordConfirm }
+        helperText="Passwords must match"
+        id="password-confirm"
+        name="passwordConfirm"
+        placeholder="*******"
+        label="Confirm Password"
+      />
       <Button
-        type="submit"
         variant="contained"
-        sx={{ marginTop: 2, py: 1 }}
+        type="submit"
         disabled={ isButtonDisabled }
+        sx={{ marginTop: 1, py: 1 }}
       >
-        Login
+        Register
       </Button>
       <Typography
         variant="body2"
@@ -84,11 +100,11 @@ const LoginForm: React.FC<Props> = (props) => {
           },
         }}
       >
-        { 'Don\'t have an account? ' }
-        <Link to="/register">Register</Link>
+        { 'Already registered? ' }
+        <Link to="/login">Login</Link>
       </Typography>
     </Box>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

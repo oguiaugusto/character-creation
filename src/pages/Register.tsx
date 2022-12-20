@@ -5,7 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { IUserRegister, IUserRegisterValidation } from '../interfaces/IUser';
 import { isRegisterFieldsValid } from '../utils/userValidations';
-import { RegisterForm } from '../components';
+import { RegisterForm } from '../components/forms';
 import { redirectIfLoggedIn } from '../utils/redirect';
 import { createHandleChange, createHandleErrorOnBlur } from '../utils/actionHandlers';
 import postUser from '../utils/postUser';
