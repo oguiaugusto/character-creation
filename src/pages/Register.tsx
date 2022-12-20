@@ -2,7 +2,6 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { Box, Typography } from '@mui/material';
-import { grey } from '@mui/material/colors';
 import { IUserRegister, IUserRegisterValidation } from '../interfaces/IUser';
 import { isRegisterFieldsValid } from '../utils/userValidations';
 import { RegisterForm } from '../components/forms';
@@ -67,7 +66,6 @@ const Register: React.FC = () => {
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
-        bgcolor: grey[50],
       }}
     >
       <Box
