@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import { BlurHandler, ChangeHandler } from '../interfaces/types';
 import { IUserLoginValidation } from '../interfaces/IUser';
-import InputRightIcon from './InputRightIcon';
-import InputPassword from './InputPassword';
+import InputRightIcon from './inputs/InputRightIcon';
+import InputPassword from './inputs/InputPassword';
 
 type Props = {
   handleSubmit: (e: React.FormEvent) => void;

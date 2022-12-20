@@ -1,34 +1,39 @@
 import React from 'react';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {
   FormControl,
   OutlinedInput,
   InputAdornment,
+  IconButton,
   InputLabel,
 } from '@mui/material';
-import { BlurHandler, ChangeHandler } from '../interfaces/types';
-import FormErrorHelperText from './FormErrorHelperText';
+import { BlurHandler, ChangeHandler } from '../../interfaces/types';
+import FormErrorHelperText from '../FormErrorHelperText';
 
 type Props = {
   handleChange: ChangeHandler;
+  handleShow: () => void;
   handleBlur: BlurHandler;
   isValid: boolean;
   helperText: string;
+  showPassword: boolean;
   id: string;
   name: string;
   placeholder: string;
   label: string;
-  icon: React.ReactNode;
 };
 
-const InputRightIcon: React.FC<Props> = (props) => {
+const InputPassword: React.FC<Props> = (props) => {
   const {
     handleChange,
+    handleShow,
     handleBlur,
+    showPassword,
     id,
     name,
     placeholder,
     label,
-    icon,
     isValid,
     helperText,
   } = props;
@@ -40,13 +45,18 @@ const InputRightIcon: React.FC<Props> = (props) => {
         id={ id }
         name={ name }
         placeholder={ placeholder }
+        label={ label }
+        type={ showPassword ? 'text' : 'password' }
         onChange={ handleChange }
         onBlur={ handleBlur }
-        label={ label }
         error={ !isValid }
         endAdornment={ (
-          <InputAdornment position="start">
-            { icon }
+          <InputAdornment position="end">
+            <IconButton onClick={ handleShow }>
+              {
+                showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />
+              }
+            </IconButton>
           </InputAdornment>
         ) }
       />
@@ -57,4 +67,4 @@ const InputRightIcon: React.FC<Props> = (props) => {
   );
 };
 
-export default InputRightIcon;
+export default InputPassword;
