@@ -4,8 +4,8 @@ import {
   IUserRegister,
   IUserRegisterValidation,
 } from '../interfaces/IUser';
+import { FieldsValidation } from '../interfaces/types';
 
-export type FieldsValidation<F, V> = (fields: F) => [boolean, V];
 type RegisterFieldsValidation = FieldsValidation<IUserRegister, IUserRegisterValidation>;
 type LoginFieldsValidation = FieldsValidation<IUserDTO, IUserLoginValidation>;
 

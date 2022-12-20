@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { ChangeHandler } from '../interfaces/types';
-import { FieldsValidation } from './userValidations';
+import { ChangeHandler, FieldsValidation } from '../interfaces/types';
 
 type SetState<T> = Dispatch<SetStateAction<T>>;
 
