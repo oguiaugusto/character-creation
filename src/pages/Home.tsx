@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
-import { Button } from '@mui/material';
 import { redirectIfNotLoggedIn } from '../utils/redirect';
-import CreateStoryModal from '../components/CreateStoryModal';
+import { CreateStoryModal, NoStoriesCreateStoryButton } from '../components/home';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -14,14 +14,14 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <Button onClick={ () => setStoryModalOpen(true) }>Create a new story</Button>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <CreateStoryModal
         storyModalOpen={ storyModalOpen }
         setStoryModalOpen={ setStoryModalOpen }
       />
+      <NoStoriesCreateStoryButton setStoryModalOpen={ setStoryModalOpen } />
       <ToastContainer />
-    </div>
+    </Box>
   );
 };
 
