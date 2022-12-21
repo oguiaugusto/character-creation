@@ -8,6 +8,7 @@ import { CreateStoryModal, NoStoriesCreateStoryButton } from '../components/home
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [storyModalOpen, setStoryModalOpen] = useState(false);
+  const stories = [];
 
   useEffect(() => {
     redirectIfNotLoggedIn(navigate);
@@ -19,7 +20,11 @@ const Home: React.FC = () => {
         storyModalOpen={ storyModalOpen }
         setStoryModalOpen={ setStoryModalOpen }
       />
-      <NoStoriesCreateStoryButton setStoryModalOpen={ setStoryModalOpen } />
+      {
+        stories.length === 0 && (
+          <NoStoriesCreateStoryButton setStoryModalOpen={ setStoryModalOpen } />
+        )
+      }
       <ToastContainer />
     </Box>
   );
