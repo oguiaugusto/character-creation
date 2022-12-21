@@ -29,7 +29,7 @@ const PictureInput: React.FC<Props> = (props) => {
     >
       <Avatar
         alt="new story picture"
-        sx={{ bgcolor: grey[600], width: 72, height: 72 }}
+        sx={{ bgcolor: (theme) => theme.palette.primary[700], width: 72, height: 72 }}
         src={ story.picture }
       >
         <MenuBookIcon sx={{ fontSize: 48 }} />
@@ -59,9 +59,7 @@ const PictureInput: React.FC<Props> = (props) => {
             '& a': {
               color: grey[900],
               textDecoration: 'none',
-              '&:hover': {
-                fontWeight: 'bold',
-              },
+              '&:hover': { fontWeight: 'bold' },
             },
           }}
         >
