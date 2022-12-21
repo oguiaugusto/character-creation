@@ -3,12 +3,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import { toast } from 'react-toastify';
 import { grey } from '@mui/material/colors';
 import { Box, Divider, IconButton, Modal, Typography } from '@mui/material';
-import { createHandleChange, createHandleErrorOnBlur } from '../utils/actionHandlers';
-import { IStoryDTO, IStoryPOST, IStoryValidation } from '../interfaces/IStory';
-import { IUserLogged } from '../interfaces/IUser';
-import { validateStoryFields } from '../utils/storyValidations';
-import { CreateStoryForm } from './forms';
-import postStory from '../utils/postStory';
+import { createHandleChange, createHandleErrorOnBlur } from '../../utils/actionHandlers';
+import { IStoryDTO, IStoryPOST, IStoryValidation } from '../../interfaces/IStory';
+import { IUserLogged } from '../../interfaces/IUser';
+import { validateStoryFields } from '../../utils/storyValidations';
+import { CreateStoryForm } from '../forms';
+import postStory from '../../utils/postStory';
 
 type Props = {
   storyModalOpen: boolean;
